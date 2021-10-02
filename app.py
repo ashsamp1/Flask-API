@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
 db = SQLAlchemy(app)
@@ -16,14 +17,6 @@ class BlogPost(db.Model):
 
     def __repr__(self):
         return 'Blog Post ' + str(self.id)
-
-
-
-
-
-
-
-
 
 @app.route('/', methods = ['GET', 'POST'])
 def index():
@@ -61,8 +54,8 @@ def hello(id):
 
 @app.route('/onlyget',methods=['GET'])
 def get_req():
-    return "You can only get this."
+    return "You can only get this"
 
 
-if(__name__ == "__main__"):
+if __name__ == "__main__":
     app.run(debug=True)
