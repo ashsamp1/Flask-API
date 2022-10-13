@@ -56,6 +56,32 @@ def hello(id):
 def get_req():
     return "You can only get this"
 
+#Adding dib by 0 using decorator
+def smart_divide(func):
+    def inner(a,b):
+        print("I am going to divide",a,"and",b)
+        if b == 0:
+            print("Whoops! cannot divide")
+            return
+        return func(a,b)
+    return inner
+
+@smart_divide
+def divide(a,b):
+    return a/b
+
+
+@app.route('/divide', methods = ['GET','POST'])
+def divide_numbers():
+    if request.method == 'POST':
+        body = request.json
+        num1 = body['num1']
+        num2 = body['num2']
+
+        res = divide(int(num1),int(num2))
+
+        return jsonify({'result = ' : res})
+
 
 if __name__ == "__main__":
     app.run(debug=True)
